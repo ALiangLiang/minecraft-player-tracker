@@ -32,11 +32,11 @@ server = MinecraftServer.lookup(os.environ['MINECRAFT_SERVER_HOST'])
 # 'status' is supported by all Minecraft servers that are version 1.7 or higher.
 status = server.status()
 print(status.players.online)
-print([sample.name for sample in status.players.sample])
 
 with Session(engine) as session:
   operation = Operation(count=status.players.online)
-  if status.players:
+  if status.players.sample:
+    print([sample.name for sample in status.players.sample])
     players = [Player(name=sample.name) for sample in status.players.sample]
     operation.players = players
     session.add_all(players)
