@@ -36,8 +36,9 @@ print([sample.name for sample in status.players.sample])
 
 with Session(engine) as session:
   operation = Operation(count=status.players.online)
-  players = [Player(name=sample.name) for sample in status.players.sample]
-  operation.players = players
+  if status.players:
+    players = [Player(name=sample.name) for sample in status.players.sample]
+    operation.players = players
+    session.add_all(players)
   session.add(operation)
-  session.add_all(players)
   session.commit()
