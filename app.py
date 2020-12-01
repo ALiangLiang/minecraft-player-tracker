@@ -24,7 +24,7 @@ class Player(Base):
     name = Column(String, nullable=False)
     operation_id = Column(Integer, ForeignKey('operation.id'))
 
-engine = create_engine(os.environ['DATABASE_URL'], echo=True, future=True)
+engine = create_engine(os.environ['SQLALCHEMY_DATABASE_URL'], echo=True, future=True)
 
 # If you know the host and port, you may skip this and use MinecraftServer("example.org", 1234)
 server = MinecraftServer.lookup(os.environ['MINECRAFT_SERVER_HOST'])
